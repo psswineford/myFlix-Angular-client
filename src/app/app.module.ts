@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
+import { MatIconModule } from '@angular/material/icon'
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -17,6 +18,10 @@ import { UserLoginFormComponent } from './user-login-form/user-login-form.compon
 import { MovieCardComponent } from './movie-card/movie-card.component';
 import { WelcomePageComponent } from './welcome-page/welcome-page.component';
 import { RouterModule, Routes } from '@angular/router';
+import { GenreCardComponent } from './genre-card/genre-card.component';
+import { DirectorCardComponent } from './director-card/director-card.component';
+import { DescriptionCardComponent } from './description-card/description-card.component';
+import { ProfileViewComponent } from './profile-view/profile-view.component';
 
 const appRoutes: Routes = [
   { path: 'welcome', component: WelcomePageComponent },
@@ -31,6 +36,10 @@ const appRoutes: Routes = [
     UserLoginFormComponent,
     MovieCardComponent,
     WelcomePageComponent,
+    GenreCardComponent,
+    DirectorCardComponent,
+    DescriptionCardComponent,
+    ProfileViewComponent,
     
   ],
   imports: [
@@ -40,6 +49,7 @@ const appRoutes: Routes = [
     HttpClientModule,
     BrowserAnimationsModule,
     FormsModule,
+    MatIconModule,
     MatInputModule,
     MatButtonModule,
     MatCardModule,
