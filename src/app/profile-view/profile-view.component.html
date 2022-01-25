@@ -10,7 +10,7 @@
     <div class="favorites-list">
       <h3 *ngIf="favsEmpty">Looks like you have not added any titles to your favorites.
       </h3>
-      <mat-card class="card-list" *ngFor="let id of currentFavs">
+      <mat-card class="card-list" *ngFor="let id of movies">
         <img src="{{id.ImagePath}} ">
         <!-- <mat-card-actions class="actions">
           <mat-icon (click)="removeFromFavorites(movie._id)" color="primary">favorite</mat-icon>

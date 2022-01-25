@@ -17,6 +17,7 @@ export class ProfileViewComponent implements OnInit {
   currentUsername: any = this.currentUser.Username;
   currentFavs: any[]= [];
   favsEmpty: boolean = true;
+  movies: any [] = [];
 
   constructor(
     public fetchApiData: FetchApiDataService,
@@ -27,6 +28,7 @@ export class ProfileViewComponent implements OnInit {
 
   ngOnInit(): void {
     this.getCurrentUser(this.currentUsername);
+    this.displayFavorites();
   }
 
   getCurrentUser(currentUser: string): void {
@@ -69,6 +71,14 @@ export class ProfileViewComponent implements OnInit {
   openRemoveUserDialog(): void {
     this.dialog.open(RemoveUserComponent, {
       width: '320px'
+    });
+  }
+
+  displayFavorites(): void {
+    this.fetchApiData.getMovie(this.currentFavs).subscribe((resp: any) => {
+      this.movies = resp;
+      console.log('current favorites' + this.movies);
+      return this.movies;
     });
   }
 
