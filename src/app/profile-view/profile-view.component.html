@@ -7,15 +7,14 @@
   
     <h1>Your favorite movies:</h1>
   
-    <div class="favorites-list">
+    <div class="favorites-list" style="display: flex;">
       <h3 *ngIf="favsEmpty">Looks like you have not added any titles to your favorites.
       </h3>
-      <mat-card class="card-list" *ngFor="let id of movies">
+      <mat-card class="card-list" *ngFor="let id of favMov" style="flex: 1 1 auto;">
         <img src="{{id.ImagePath}} ">
-        <!-- <mat-card-actions class="actions">
-          <mat-icon (click)="removeFromFavorites(movie._id)" color="primary">favorite</mat-icon>
-        </mat-card-actions> -->
         <mat-card-title class="title">{{id.Title}}</mat-card-title>
+        <button mat-raised-button color="primary"
+            (click)="removeFromFavorites(id._id)">Remove Favorite</button>
       </mat-card>
     </div>
   

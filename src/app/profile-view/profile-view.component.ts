@@ -17,7 +17,9 @@ export class ProfileViewComponent implements OnInit {
   currentUsername: any = this.currentUser.Username;
   currentFavs: any[]= [];
   favsEmpty: boolean = true;
-  movies: any [] = [];
+  favMov: any = [];
+  movies: any[] = [];
+  favorites: any[] = [];
 
   constructor(
     public fetchApiData: FetchApiDataService,
@@ -29,16 +31,17 @@ export class ProfileViewComponent implements OnInit {
   ngOnInit(): void {
     this.getCurrentUser(this.currentUsername);
     this.displayFavorites();
+    this.getMovies();
   }
 
   getCurrentUser(currentUser: string): void {
     this.fetchApiData.getUser(currentUser).subscribe((resp: any) => {
       this.currentUser = resp;
-      this.currentFavs = this.currentUser.FavoriteMovies;
-      console.log(this.currentFavs);
+      this.currentFavs = resp.FavoriteMovies;
+      console.log('from current user' + this.currentFavs);
       this.areFavsEmpty();
-      return this.currentUser;
-    
+      // return this.currentUser;
+      // return this.currentFavs;
     });
   }
 
@@ -75,12 +78,35 @@ export class ProfileViewComponent implements OnInit {
   }
 
   displayFavorites(): void {
-    this.fetchApiData.getMovie(this.currentFavs).subscribe((resp: any) => {
-      this.movies = resp;
-      console.log('current favorites' + this.movies);
-      return this.movies;
+    const user = localStorage.getItem('user');
+    console.log(user);
+    this.fetchApiData.getUser(user).subscribe((resp: any) => {
+      this.favorites = this.currentFavs;
+      console.log(this.favorites);
+      return this.filterMovies();
     });
   }
+
+  filterMovies(): void {
+    this.movies.forEach((movie: any) => {
+      if (this.favorites.includes(movie._id)) {
+        this.favMov.push(movie);
+      }
+    });
+    console.log(this.favMov);
+  
+    return this.favMov;
+  }
+
+  getMovies(): void {
+    this.fetchApiData.getAllMovies().subscribe((resp: any) => {
+      this.movies = resp;
+      console.log(this.movies);
+      return this.movies;
+    })
+  }
+
+
 
   removeFromFavorites(movieId: string): void {
     this.fetchApiData.deleteMovie(this.currentUsername, movieId).subscribe((resp: any) => {
