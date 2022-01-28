@@ -26,6 +26,11 @@ export class RemoveUserComponent implements OnInit {
   ngOnInit(): void {
   }
 
+   /**
+ * Form for deleting a user
+ * Send @deleteUser data to the API
+ */
+
   removeUser(): void {
     this.fetchApiData.deleteUser(this.username!).subscribe((response) => {
       console.log('response', response);

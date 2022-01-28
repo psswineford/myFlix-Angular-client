@@ -35,6 +35,10 @@ export class UserEditComponent implements OnInit {
   ngOnInit(): void {
   }
 
+/**
+ * Send Updated user data to the API
+ */
+
   editUser(): void {
     //prevent sending an empty field (that would erase the previous data and replace it with null)
     if (this.newData.Username  && this.newData.Email && this.newData.Birthday) {
