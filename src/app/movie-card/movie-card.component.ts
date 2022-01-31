@@ -16,33 +16,40 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class MovieCardComponent {
   movies: any[] = [];
   currentUser: any = localStorage.getItem('user');
-  user: any= JSON.parse(this.currentUser)
-  currentUserName: any=this.user.Username;
+  user: any = JSON.parse(this.currentUser)
+  currentUserName: any = this.user.Username;
 
   favoriteMovies: any[] = [];
-  
+
 
 
   constructor(public fetchApiData: FetchApiDataService,
-    public dialog: MatDialog,  
+    public dialog: MatDialog,
     public router: Router,
     public snackBar: MatSnackBar,
-    ) { }
+  ) { }
 
-ngOnInit(): void {
-  this.getMovies();
-}
+  ngOnInit(): void {
+    this.getMovies();
+  }
 
+  /**
+* @function call API to return all movies
+* @return movies
+*/
 
-
-getMovies(): void {
-  this.fetchApiData.getAllMovies().subscribe((resp: any) => {
+  getMovies(): void {
+    this.fetchApiData.getAllMovies().subscribe((resp: any) => {
       this.movies = resp;
       console.log(this.movies);
       return this.movies;
     });
   }
-  
+
+  /**
+* @function call API to open genre information
+*/
+
   openGenreCard(
     name: string,
     description: string
@@ -55,6 +62,11 @@ getMovies(): void {
       width: '500px'
     });
   }
+
+  /**
+* @function call API to open director information
+*/
+
 
   openDirectorCard(
     name: string,
@@ -72,6 +84,9 @@ getMovies(): void {
       width: '500px'
     });
   }
+    /**
+* @function call API to open description information
+*/
 
   openDescriptionCard(
     title: string,
@@ -94,6 +109,12 @@ getMovies(): void {
     localStorage.clear();
   }
 
+      /**
+* @function call API to add a movie to favorites
+* @return getUserFavs
+*/
+
+
   addToFavs(movieId: string, title: string): void {
     this.fetchApiData
       .addFavoriteMovies(this.currentUserName, movieId)
@@ -110,6 +131,12 @@ getMovies(): void {
     return this.getUserFavs();
   }
 
+/**
+* @function call getUser API to get favorite movies
+* @return favoriteMovies
+*/
+
+
   getUserFavs(): any {
     this.fetchApiData.getUser(this.currentUserName).subscribe((res: any) => {
       this.favoriteMovies = res.Favorites;
@@ -117,7 +144,7 @@ getMovies(): void {
     });
   }
 
-  
+
 
 }
 

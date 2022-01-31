@@ -24,7 +24,11 @@ export class GenreCardComponent implements OnInit {
     this.getGenreDescription(this.genre);
   }
 
-  //get genre data on current movie
+/**
+* @function call API to return genre description
+* @return genre
+*/
+
   getGenreDescription(currentGenre: string): void {
     this.fetchApiData.getGenre(currentGenre).subscribe((resp: any) => {
       this.genre = resp;
